@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config'
 //import starlightGiscus from 'starlight-giscus'
 
 export default defineConfig({
+  site: 'https://dragomano.github.io/starlight-giscus',
+  base: '/starlight-giscus/',
   integrations: [
     starlight({
       editLink: {
