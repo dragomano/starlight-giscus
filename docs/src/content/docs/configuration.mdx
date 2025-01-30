@@ -1,0 +1,85 @@
+---
+title: Configuration
+description: An overview of all the configuration options supported by the Starlight Giscus plugin.
+---
+
+The Starlight Giscus plugin can be configured inside the `astro.config.mjs` configuration file of your project:
+
+```js {11}
+// astro.config.mjs
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
+import starlightGiscus from 'starlight-giscus'
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightGiscus({
+          // Configuration options
+        }),
+      ],
+      title: 'My Docs',
+    }),
+  ],
+})
+```
+
+Just [create a Giscus App](https://giscus.app), and then copy the relevant settings from there.
+
+## Options
+
+The Starlight Giscus plugin accepts the following configuration options:
+
+### `repository` (required)
+
+**Type:** `string`
+
+A public GitHub repository. This repo is where the discussions will be linked to.
+
+### `repositoryId` (required)
+
+**Type:** `string`
+
+Set the repository ID. Copy it from the Giscus app settings.
+
+### `category` (required)
+
+**Type:** `string`
+
+Choose the discussion category where new discussions will be created.
+
+### `categoryId` (required)
+
+**Type:** `string`
+
+Set the discussion category ID. Copy it from the Giscus app settings.
+
+### `mapping`
+
+**Type:** `string`
+**Default:** `pathname`
+
+Choose the mapping between the embedding page and the embedded discussion.
+
+* `pathname` - giscus will search for a discussion whose title contains the page's pathname URL component.
+
+* `URL` - giscus will search for a discussion whose title contains the page's URL.
+
+* `<title>` - giscus will search for a discussion whose title contains the page's `<title>` HTML tag.
+
+* `og:title` - giscus will search for a discussion whose title contains the page's `<meta property="og:title">` HTML tag.
+
+### `inputPosition`
+
+**Type:** `string` (`top` | `bottom`)
+**Default:** `bottom`
+
+Place the comment box above or below the comments.
+
+### `theme`
+
+**Type:** `string`
+**Default:** `preferred_color_scheme`
+
+Choose a theme that matches your website.

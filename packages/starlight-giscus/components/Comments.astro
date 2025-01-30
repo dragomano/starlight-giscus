@@ -1,0 +1,62 @@
+---
+const { editUrl, lang, slug } = Astro.props;
+const {
+    repository,
+    repositoryId,
+    category,
+    categoryId,
+    mapping,
+    inputPosition,
+    theme
+} = JSON.parse(import.meta.env.GISCUS_OPTIONS)
+---
+{
+    editUrl && slug && (
+        <div class="comments">
+            <script src="https://giscus.app/client.js"
+                data-repo={repository}
+                data-repo-id={repositoryId}
+                data-category={category}
+                data-category-id={categoryId}
+                data-mapping={mapping}
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position={inputPosition}
+                data-theme={theme}
+                data-lang={lang}
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async
+            >
+            </script>
+        </div>
+
+        <script>
+            const theme = () => {
+                const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme'
+
+                return palette === "dark"
+                    ? "transparent_dark"
+                    : (palette === 'light' ? "light" : "preferred_color_scheme")
+            }
+
+            const giscus = document.querySelector("script[src*=giscus]")
+
+            giscus.setAttribute("data-theme", theme())
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const ref = document.querySelector("starlight-theme-select")
+
+                ref.addEventListener("change", function() {
+                    const frame = document.querySelector(".giscus-frame")
+
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme: theme() } } },
+                        "https://giscus.app"
+                    )
+                })
+            })
+        </script>
+    )
+}
