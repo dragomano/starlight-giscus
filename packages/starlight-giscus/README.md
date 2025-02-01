@@ -1,6 +1,6 @@
 # `starlight-giscus`
 
-This Starlight plugin connects your documentation with GitHub discussions providing you convenient comments with reaction support.
+This Starlight plugin ties your documentation to GitHub discussions, givin' you a handy way to comment and react.
 
 ## Getting Started
 
