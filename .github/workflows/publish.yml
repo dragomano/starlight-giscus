@@ -34,5 +34,4 @@ jobs:
         # npm publish --provenance --access public
         run: |
           pnpm install --frozen-lockfile
-          cd packages/starlight-giscus
-          pnpm publish --no-git-checks
+          pnpm publish --filter ./packages/starlight-giscus --no-git-checks
