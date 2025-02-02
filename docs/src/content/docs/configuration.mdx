@@ -31,13 +31,13 @@ Just [create a Giscus App](https://giscus.app), and then copy the relevant setti
 
 The Starlight Giscus plugin accepts the following configuration options:
 
-### `repository` (required)
+### `repo` (required)
 
 **Type:** `string`
 
 A public GitHub repository. This repo is where the discussions will be linked to.
 
-### `repositoryId` (required)
+### `repoId` (required)
 
 **Type:** `string`
 
@@ -69,6 +69,13 @@ Choose the mapping between the embedding page and the embedded discussion.
 * `<title>` - giscus will search for a discussion whose title contains the page's `<title>` HTML tag.
 
 * `og:title` - giscus will search for a discussion whose title contains the page's `<meta property="og:title">` HTML tag.
+
+### `reactions`
+
+**Type:** `boolean`
+**Default:** `true`
+
+Enable reactions for the main post.
 
 ### `inputPosition`
 

@@ -12,8 +12,8 @@ export default defineConfig({
       },
       plugins: [
         starlightGiscus({
-          repository: 'dragomano/starlight-giscus',
-          repositoryId: 'R_kgDONyBz0w',
+          repo: 'dragomano/starlight-giscus',
+          repoId: 'R_kgDONyBz0w',
           category: 'Q&A',
           categoryId: 'DIC_kwDONyBz084Cme94',
           inputPosition: 'top'
