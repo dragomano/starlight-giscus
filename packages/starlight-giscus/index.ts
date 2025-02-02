@@ -4,11 +4,12 @@ import { z } from 'astro/zod'
 
 const configSchema = z
   .object({
-    repository: z.string(),
-    repositoryId: z.string(),
+    repo: z.string(),
+    repoId: z.string(),
     category: z.string(),
     categoryId: z.string(),
     mapping: z.string().default('pathname'),
+    reactions: z.boolean().default(true),
     inputPosition: z.string().default('bottom'),
     theme: z.string().default('preferred_color_scheme'),
   })
@@ -24,7 +25,7 @@ export default function starlightPluginName(options: StarlightGiscusUserConfig):
     name: 'starlight-giscus',
     hooks: {
       setup({ config, updateConfig }) {
-        process.env.GISCUS_OPTIONS = JSON.stringify(parsedConfig?.data) || '';
+        globalThis.giscusConfig = parsedConfig.data;
 
         updateConfig({
           components: {

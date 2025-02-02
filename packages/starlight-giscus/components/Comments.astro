@@ -1,26 +1,27 @@
 ---
 const { editUrl, lang, slug } = Astro.props;
 const {
-    repository,
-    repositoryId,
+    repo,
+    repoId,
     category,
     categoryId,
     mapping,
+    reactions,
     inputPosition,
     theme
-} = JSON.parse(import.meta.env.GISCUS_OPTIONS)
+} = globalThis.giscusConfig;
 ---
 {
     editUrl && slug && (
         <div class="comments">
             <script src="https://giscus.app/client.js"
-                data-repo={repository}
-                data-repo-id={repositoryId}
+                data-repo={repo}
+                data-repo-id={repoId}
                 data-category={category}
                 data-category-id={categoryId}
                 data-mapping={mapping}
                 data-strict="1"
-                data-reactions-enabled="1"
+                data-reactions-enabled={+reactions}
                 data-emit-metadata="0"
                 data-input-position={inputPosition}
                 data-theme={theme}
