@@ -38,7 +38,7 @@ const {
                 const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme'
 
                 return palette === "dark"
-                    ? "transparent_dark"
+                    ? "dark"
                     : (palette === 'light' ? "light" : "preferred_color_scheme")
             }
 
@@ -53,7 +53,13 @@ const {
                     const frame = document.querySelector(".giscus-frame")
 
                     frame.contentWindow.postMessage(
-                        { giscus: { setConfig: { theme: theme() } } },
+                        {
+                            giscus: {
+                                setConfig: {
+                                    theme: theme()
+                                }
+                            }
+                        },
                         "https://giscus.app"
                     )
                 })

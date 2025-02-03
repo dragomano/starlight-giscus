@@ -14,7 +14,7 @@ const configSchema = z
     theme: z.string().default('preferred_color_scheme'),
   })
 
-export default function starlightPluginName(options: StarlightGiscusUserConfig): StarlightPlugin {
+export default function starlightGiscus(options: StarlightGiscusConfig): StarlightPlugin {
   const parsedConfig = configSchema.safeParse(options)
 
   if (!parsedConfig.success) {
@@ -38,5 +38,4 @@ export default function starlightPluginName(options: StarlightGiscusUserConfig):
   }
 }
 
-export type StarlightGiscusUserConfig = z.input<typeof configSchema>
 export type StarlightGiscusConfig = z.output<typeof configSchema>
