@@ -2,6 +2,15 @@ import type { StarlightPlugin } from '@astrojs/starlight/types'
 import { AstroError } from 'astro/errors'
 import { z } from 'astro/zod'
 
+const themeSchema = z.union([
+  z.string().default('preferred_color_scheme'),
+  z.object({
+    light: z.string().default('light'),
+    dark: z.string().default('dark'),
+    auto: z.string().default('preferred_color_scheme'),
+  })
+]);
+
 const configSchema = z
   .object({
     repo: z.string(),
@@ -11,10 +20,10 @@ const configSchema = z
     mapping: z.string().default('pathname'),
     reactions: z.boolean().default(true),
     inputPosition: z.string().default('bottom'),
-    theme: z.string().default('preferred_color_scheme'),
+    theme: themeSchema.default('preferred_color_scheme'),
   })
 
-export default function starlightGiscus(options: StarlightGiscusConfig): StarlightPlugin {
+export default function starlightGiscus(options: StarlightGiscusUserConfig): StarlightPlugin {
   const parsedConfig = configSchema.safeParse(options)
 
   if (!parsedConfig.success) {
@@ -38,4 +47,5 @@ export default function starlightGiscus(options: StarlightGiscusConfig): Starlig
   }
 }
 
+type StarlightGiscusUserConfig = z.input<typeof configSchema>
 export type StarlightGiscusConfig = z.output<typeof configSchema>

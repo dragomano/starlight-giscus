@@ -13,57 +13,76 @@ const {
 ---
 {
     editUrl && slug && (
-        <div class="comments">
-            <script src="https://giscus.app/client.js"
-                data-repo={repo}
-                data-repo-id={repoId}
-                data-category={category}
-                data-category-id={categoryId}
-                data-mapping={mapping}
-                data-strict="1"
-                data-reactions-enabled={+reactions}
-                data-emit-metadata="0"
-                data-input-position={inputPosition}
-                data-theme={theme}
-                data-lang={lang}
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            >
-            </script>
-        </div>
+        <giscus-comments data-theme={JSON.stringify(theme)}>
+            <div class="comments">
+                <script src="https://giscus.app/client.js"
+                    data-repo={repo}
+                    data-repo-id={repoId}
+                    data-category={category}
+                    data-category-id={categoryId}
+                    data-mapping={mapping}
+                    data-strict="1"
+                    data-reactions-enabled={+reactions}
+                    data-emit-metadata="0"
+                    data-input-position={inputPosition}
+                    data-theme={typeof theme === 'object' ? theme.auto : theme}
+                    data-lang={lang}
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async
+                >
+                </script>
+            </div>
+        </giscus-comments>
 
         <script>
-            const theme = () => {
-                const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme'
+            class GiscusComments extends HTMLElement {
+                constructor() {
+                    super();
 
-                return palette === "dark"
-                    ? "dark"
-                    : (palette === 'light' ? "light" : "preferred_color_scheme")
+                    const theme = JSON.parse(this.dataset.theme)
+
+                    const getThemeName = (key, fallback) =>
+                        typeof theme === 'object' ? theme[key] : theme === 'preferred_color_scheme' ? fallback : theme;
+
+                    const darkTheme = getThemeName('dark', 'dark');
+                    const lightTheme = getThemeName('light', 'light');
+                    const preferredTheme = getThemeName('auto', 'preferred_color_scheme');
+
+                    const getTheme = () => {
+                        const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme'
+
+                        return palette === "dark"
+                            ? darkTheme
+                            : (palette === 'light' ? lightTheme : preferredTheme)
+                    }
+
+                    const giscus = document.querySelector('script[src*=giscus]')
+
+                    giscus.setAttribute('data-theme', getTheme())
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const ref = document.querySelector('starlight-theme-select')
+
+                        ref.addEventListener('change', function() {
+                            const frame = document.querySelector('.giscus-frame')
+
+                            frame.contentWindow.postMessage(
+                                {
+                                    giscus: {
+                                        setConfig: {
+                                            theme: getTheme()
+                                        }
+                                    }
+                                },
+                                'https://giscus.app'
+                            )
+                        })
+                    })
+                }
             }
 
-            const giscus = document.querySelector("script[src*=giscus]")
-
-            giscus.setAttribute("data-theme", theme())
-
-            document.addEventListener("DOMContentLoaded", function() {
-                const ref = document.querySelector("starlight-theme-select")
-
-                ref.addEventListener("change", function() {
-                    const frame = document.querySelector(".giscus-frame")
-
-                    frame.contentWindow.postMessage(
-                        {
-                            giscus: {
-                                setConfig: {
-                                    theme: theme()
-                                }
-                            }
-                        },
-                        "https://giscus.app"
-                    )
-                })
-            })
+            customElements.define('giscus-comments', GiscusComments);
         </script>
     )
 }

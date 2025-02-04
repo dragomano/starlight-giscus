@@ -58,6 +58,7 @@ Set the discussion category ID. Copy it from the Giscus app settings.
 ### `mapping`
 
 **Type:** `string`
+
 **Default:** `pathname`
 
 Choose the mapping between the embedding page and the embedded discussion.
@@ -73,6 +74,7 @@ Choose the mapping between the embedding page and the embedded discussion.
 ### `reactions`
 
 **Type:** `boolean`
+
 **Default:** `true`
 
 Enable reactions for the main post.
@@ -80,13 +82,15 @@ Enable reactions for the main post.
 ### `inputPosition`
 
 **Type:** `string` (`top` | `bottom`)
+
 **Default:** `bottom`
 
 Place the comment box above or below the comments.
 
 ### `theme`
 
-**Type:** `string`
+**Type:** `string` | `{ light: string; dark: string; auto: string }`
+
 **Default:** `preferred_color_scheme`
 
 Choose a theme that matches your website.
