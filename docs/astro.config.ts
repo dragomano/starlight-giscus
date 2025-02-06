@@ -20,13 +20,8 @@ export default defineConfig({
         })
       ],
       sidebar: [
-        {
-          label: 'Menu',
-          items: [
-            { slug: 'getting-started' },
-            { slug: 'configuration' }
-          ],
-        },
+        { slug: 'getting-started' },
+        { slug: 'configuration' }
       ],
       social: {
         github: 'https://github.com/dragomano/starlight-giscus',

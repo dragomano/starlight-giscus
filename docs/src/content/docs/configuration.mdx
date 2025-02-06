@@ -77,7 +77,7 @@ Choose the mapping between the embedding page and the embedded discussion.
 
 **Default:** `true`
 
-Enable reactions for the main post.
+Show reactions block above the reply form.
 
 ### `inputPosition`
 
@@ -85,12 +85,43 @@ Enable reactions for the main post.
 
 **Default:** `bottom`
 
-Place the comment box above or below the comments.
+Place the reply form above or below the comments.
 
 ### `theme`
 
 **Type:** `string` | `{ light: string; dark: string; auto: string }`
 
-**Default:** `preferred_color_scheme`
+**Default:** `preferred_color_scheme` | `{ light: 'light', dark: 'dark', auto: 'preferred_color_scheme' }`
 
 Choose a theme that matches your website.
+
+Possible values:
+
+| Value                                          | Name                                   |
+|------------------------------------------------|----------------------------------------|
+| `preferred_color_scheme`                       | System (default)                       |
+| `light`                                        | GitHub Light                           |
+| `light_high_contrast`                          | GitHub Light High Contrast             |
+| `light_protanopia`                             | GitHub Light Protanopia & Deuteranopia |
+| `light_tritanopia`                             | GitHub Light Tritanopia                |
+| `dark`                                         | GitHub Dark                            |
+| `dark_high_contrast`                           | GitHub Dark High Contrast              |
+| `dark_protanopia`                              | GitHub Dark Protanopia & Deuteranopia  |
+| `dark_tritanopia`                              | GitHub Dark Tritanopia                 |
+| `dark_dimmed`                                  | GitHub Dark Dimmed                     |
+| `transparent_dark`                             | Transparent Dark                       |
+| `noborder_light`                               | NoBorder Light                         |
+| `noborder_dark`                                | NoBorder Dark                          |
+| `noborder_gray`                                | NoBorder Gray                          |
+| `cobalt`                                       | RStudio Cobalt                         |
+| `purple_dark`                                  | Purple Dark                            |
+| `gruvbox`                                      | Gruvbox                                |
+| `gruvbox_dark`                                 | Gruvbox Dark                           |
+| `gruvbox_light`                                | Gruvbox Light                          |
+| `catppuccin_latte`                             | Catppuccin Latte                       |
+| `catppuccin_frappe`                            | Catppuccin Frappé                      |
+| `catppuccin_macchiato`                         | Catppuccin Macchiato                   |
+| `catppuccin_mocha`                             | Catppuccin Mocha                       |
+| `fro`                                          | Fro                                    |
+| `https://giscus.app/themes/custom_example.css` | Custom Theme CSS Url                   |
+

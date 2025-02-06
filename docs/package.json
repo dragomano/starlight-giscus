@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus-docs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "Starlight Giscus plugin documentation",
   "author": "Bugo",
@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.31.1",
-    "astro": "^5.2.3",
+    "astro": "^5.2.5",
     "sharp": "^0.33.5",
     "starlight-giscus": "workspace:*",
-    "starlight-package-managers": "^0.9.1"
+    "starlight-package-managers": "^0.10.0"
   },
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
