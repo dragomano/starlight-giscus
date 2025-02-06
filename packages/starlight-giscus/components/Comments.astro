@@ -8,7 +8,8 @@ const {
     mapping,
     reactions,
     inputPosition,
-    theme
+    theme,
+    lazy
 } = globalThis.giscusConfig;
 ---
 {
@@ -27,7 +28,7 @@ const {
                     data-input-position={inputPosition}
                     data-theme={typeof theme === 'object' ? theme.auto : theme}
                     data-lang={lang}
-                    data-loading="lazy"
+                    data-loading={lazy ? 'lazy' : null}
                     crossorigin="anonymous"
                     async
                 >
@@ -49,15 +50,15 @@ const {
                     const lightTheme = getThemeName('light', 'light');
                     const preferredTheme = getThemeName('auto', 'preferred_color_scheme');
 
-                    const getTheme = () => {
-                        const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme'
+                    const getTheme = (fallback = 'preferred_color_scheme') => {
+                        const palette = localStorage.getItem('starlight-theme') || fallback
 
-                        return palette === "dark"
+                        return palette === 'dark'
                             ? darkTheme
                             : (palette === 'light' ? lightTheme : preferredTheme)
                     }
 
-                    const giscus = document.querySelector('script[src*=giscus]')
+                    const giscus = document.querySelector('script[src*="giscus.app"]')
 
                     giscus.setAttribute('data-theme', getTheme())
 
@@ -75,7 +76,7 @@ const {
                                         }
                                     }
                                 },
-                                'https://giscus.app'
+                                '*'
                             )
                         })
                     })
