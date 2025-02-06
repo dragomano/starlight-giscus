@@ -11,4 +11,5 @@ declare var giscusConfig: {
     dark: string;
     auto: string;
   };
+  lazy: boolean;
 };

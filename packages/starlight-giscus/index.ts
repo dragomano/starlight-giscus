@@ -21,6 +21,7 @@ const configSchema = z
     reactions: z.boolean().default(true),
     inputPosition: z.string().default('bottom'),
     theme: themeSchema.default('preferred_color_scheme'),
+    lazy: z.boolean().default(true),
   })
 
 export default function starlightGiscus(options: StarlightGiscusUserConfig): StarlightPlugin {
