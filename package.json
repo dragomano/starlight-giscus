@@ -1,6 +1,5 @@
 {
   "name": "starlight-giscus-monorepo",
-  "version": "0.0.1",
   "license": "MIT",
   "description": "Integrates the Giscus comments into your documentation.",
   "keywords": [
