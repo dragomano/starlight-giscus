@@ -34,7 +34,7 @@ export default function starlightGiscus(options: StarlightGiscusUserConfig): Sta
   return {
     name: 'starlight-giscus',
     hooks: {
-      setup({ config, updateConfig }) {
+      'config:setup'({ config, updateConfig }) {
         globalThis.giscusConfig = parsedConfig.data;
 
         updateConfig({
