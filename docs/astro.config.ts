@@ -21,12 +21,23 @@ export default defineConfig({
       ],
       sidebar: [
         { slug: 'getting-started' },
-        { slug: 'configuration' }
+        { slug: 'configuration' },
+        { slug: 'frontmatter' },
       ],
       social: {
         github: 'https://github.com/dragomano/starlight-giscus',
       },
       title: 'Starlight Giscus',
+      locales: {
+        root: {
+          label: 'English',
+          lang: 'en',
+        },
+        ru: {
+          label: 'Русский',
+          lang: 'ru',
+        },
+      },
     }),
   ],
 })

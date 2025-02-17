@@ -1,0 +1,51 @@
+---
+title: Быстрый старт
+---
+
+Этот плагин предоставляет [блок комментариев Giscus](https://giscus.app) для вашего сайта документации.
+
+## Предварительные требования
+
+Вам необходимо настроить сайт Starlight. Если вы ещё не создали его, вы можете обратиться к руководству [Первые шаги](https://starlight.astro.build/ru/getting-started/) в документации Starlight, чтобы его настроить.
+
+## Установка
+
+import { Steps } from '@astrojs/starlight/components'
+import { PackageManagers } from 'starlight-package-managers';
+
+<Steps>
+
+1. `starlight-giscus` — это [плагин](https://starlight.astro.build/reference/plugins/) для Starlight. Установите его, выполнив следующую команду в вашем терминале:
+
+    <PackageManagers pkg="starlight-giscus"  />
+
+2. [Настройте](https://giscus.app) приложение Giscus.
+
+3. Настройте плагин в вашей [конфигурации](https://starlight.astro.build/ru/reference/configuration/#plugins) Starlight в файле `astro.config.mjs`.
+
+    ```diff lang="js"
+    // astro.config.mjs
+    import starlight from '@astrojs/starlight'
+    import { defineConfig } from 'astro/config'
+    +import starlightGiscus from 'starlight-giscus'
+
+    export default defineConfig({
+      integrations: [
+        starlight({
+    +     plugins: [
+    +       starlightGiscus({
+    +           repo: 'username/github_repo_name',
+    +           repoId: 'repository_id_from_giscus',
+    +           category: 'category_name_from_github_discussions',
+    +           categoryId: 'category_id_from_giscus'
+    +       })
+    +     ],
+          title: 'My Docs',
+        }),
+      ],
+    })
+    ```
+
+4. [Запустите сервер разработки](https://starlight.astro.build/getting-started/#start-the-development-server), чтобы проверить плагин в работе.
+
+</Steps>

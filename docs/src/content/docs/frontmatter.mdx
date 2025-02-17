@@ -1,3 +1,13 @@
+---
+title: Frontmatter
+---
+
+By default, the comment block will be displayed on all pages of your documentation.
+
+To disable comments on a specific page, extend the collection schema:
+
+```ts
+// src/content.config.ts
 import { defineCollection, z } from 'astro:content'
 import { docsLoader } from '@astrojs/starlight/loaders'
 import { docsSchema } from '@astrojs/starlight/schema'
@@ -12,3 +22,14 @@ export const collections = {
     }),
   }),
 }
+```
+
+and add the property `giscus: false` in the page's frontmatter:
+
+```mdx
+// page.mdx
+---
+title: Some Page
+giscus: false
+---
+```

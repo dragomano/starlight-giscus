@@ -1,0 +1,134 @@
+---
+title: Настройка
+description: Обзор всех параметров конфигурации, поддерживаемых плагином Starlight Giscus.
+---
+
+Плагин Starlight Giscus можно настроить в файле конфигурации `astro.config.mjs` вашего проекта:
+
+```js {11}
+// astro.config.mjs
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
+import starlightGiscus from 'starlight-giscus'
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightGiscus({
+          // Параметры
+        }),
+      ],
+      title: 'My Docs',
+    }),
+  ],
+})
+```
+
+Просто [создайте приложение Giscus](https://giscus.app), а затем скопируйте соответствующие настройки оттуда.
+
+## Параметры
+
+Плагин Starlight Giscus принимает следующие параметры конфигурации:
+
+### `repo` (обязательно)
+
+**Тип:** `string`
+
+Публичный репозиторий GitHub. Этот репозиторий будет связан с обсуждениями.
+
+### `repoId` (обязательно)
+
+**Тип:** `string`
+
+Установите идентификатор репозитория. Скопируйте его из настроек приложения Giscus.
+
+### `category` (обязательно)
+
+**Тип:** `string`
+
+Выберите категорию обсуждений, в которой будут создаваться новые комментарии.
+
+### `categoryId` (обязательно)
+
+**Тип:** `string`
+
+Установите идентификатор категории обсуждений. Скопируйте его из настроек приложения Giscus.
+
+### `mapping`
+
+**Тип:** `string`
+
+**По умолчанию:** `pathname`
+
+Выберите соответствие между встраиваемой страницей и встроенным обсуждением.
+
+* `pathname` - giscus будет искать обсуждение, заголовок которого содержит компонент URL-адреса страницы.
+
+* `URL` - giscus будет искать обсуждение, заголовок которого содержит URL-адрес страницы.
+
+* `<title>` - giscus будет искать обсуждение, заголовок которого содержит HTML-тег `<title>` страницы.
+
+* `og:title` - giscus будет искать обсуждение, заголовок которого содержит HTML-тег `<meta property="og:title">` страницы.
+
+### `reactions`
+
+**Тип:** `boolean`
+
+**По умолчанию:** `true`
+
+Показать блок реакций над формой ответа.
+
+### `inputPosition`
+
+**Тип:** `string` (`top` | `bottom`)
+
+**По умолчанию:** `bottom`
+
+Разместить форму ответа выше или ниже комментариев.
+
+### `theme`
+
+**Тип:** `string` | `{ light: string; dark: string; auto: string }`
+
+**По умолчанию:** `preferred_color_scheme` | `{ light: 'light', dark: 'dark', auto: 'preferred_color_scheme' }`
+
+Выберите тему, которая соответствует вашему сайту.
+
+Возможные значения:
+
+| Значение                                       | Название                               |
+|------------------------------------------------|----------------------------------------|
+| `preferred_color_scheme`                       | System (по умолчанию)                  |
+| `light`                                        | GitHub Light                           |
+| `light_high_contrast`                          | GitHub Light High Contrast             |
+| `light_protanopia`                             | GitHub Light Protanopia & Deuteranopia |
+| `light_tritanopia`                             | GitHub Light Tritanopia                |
+| `dark`                                         | GitHub Dark                            |
+| `dark_high_contrast`                           | GitHub Dark High Contrast              |
+| `dark_protanopia`                              | GitHub Dark Protanopia & Deuteranopia  |
+| `dark_tritanopia`                              | GitHub Dark Tritanopia                 |
+| `dark_dimmed`                                  | GitHub Dark Dimmed                     |
+| `transparent_dark`                             | Transparent Dark                       |
+| `noborder_light`                               | NoBorder Light                         |
+| `noborder_dark`                                | NoBorder Dark                          |
+| `noborder_gray`                                | NoBorder Gray                          |
+| `cobalt`                                       | RStudio Cobalt                         |
+| `purple_dark`                                  | Purple Dark                            |
+| `gruvbox`                                      | Gruvbox                                |
+| `gruvbox_dark`                                 | Gruvbox Dark                           |
+| `gruvbox_light`                                | Gruvbox Light                          |
+| `catppuccin_latte`                             | Catppuccin Latte                       |
+| `catppuccin_frappe`                            | Catppuccin Frappé                      |
+| `catppuccin_macchiato`                         | Catppuccin Macchiato                   |
+| `catppuccin_mocha`                             | Catppuccin Mocha                       |
+| `fro`                                          | Fro                                    |
+| `https://giscus.app/themes/custom_example.css` | URL CSS-файла пользовательской темы    |
+
+### `lazy`
+
+**Тип:** `boolean`
+
+**По умолчанию:** `false`
+
+Загрузка комментариев будет отложена до тех пор, пока пользователь не прокрутит страницу к контейнеру с комментариями.
