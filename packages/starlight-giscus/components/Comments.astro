@@ -1,5 +1,5 @@
 ---
-const { editUrl, lang, slug } = Astro.locals.starlightRoute;
+const { entry, lang } = Astro.locals.starlightRoute;
 const {
     repo,
     repoId,
@@ -12,9 +12,10 @@ const {
     lazy
 } = globalThis.giscusConfig;
 const preparedTheme = typeof theme === 'object' ? theme : { auto: theme };
+const giscus = entry.data.giscus ?? true;
 ---
 {
-    editUrl && slug && (
+    giscus && (
         <giscus-comments data-theme={JSON.stringify(preparedTheme)}>
             <div class="comments">
                 <script src="https://giscus.app/client.js"
