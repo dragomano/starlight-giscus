@@ -37,6 +37,8 @@ export default function starlightGiscus(options: StarlightGiscusUserConfig): Sta
       'config:setup'({ config, updateConfig }) {
         globalThis.giscusConfig = parsedConfig.data;
 
+        if (config.components?.Pagination) return;
+
         updateConfig({
           components: {
             ...config.components,
