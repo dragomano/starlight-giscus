@@ -46,6 +46,22 @@ import { PackageManagers } from 'starlight-package-managers';
     })
     ```
 
-4. [Запустите сервер разработки](https://starlight.astro.build/getting-started/#start-the-development-server), чтобы проверить плагин в работе.
+4. (Необязательно) Если вы уже переопределяете или [хотите переопределить](https://starlight.astro.build/ru/reference/configuration/#components) стандартный компонент `Pagination`, добавьте `Comments.astro` в свой код:
+
+    ```astro
+    // CustomPagination.astro
+    ---
+    import Comments from 'starlight-giscus/components/Comments.astro';
+    import OriginalPagination from '@astrojs/starlight/components/Pagination.astro';
+    ---
+
+    <Comments />
+
+    Вставьте ваш вариант кода пагинации
+
+    или используйте стандартный компонент: <OriginalPagination />
+    ```
+
+5. [Запустите сервер разработки](https://starlight.astro.build/getting-started/#start-the-development-server), чтобы проверить плагин в работе.
 
 </Steps>

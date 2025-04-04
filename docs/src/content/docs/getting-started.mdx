@@ -46,6 +46,22 @@ import { PackageManagers } from 'starlight-package-managers';
     })
     ```
 
-4. [Start the development server](https://starlight.astro.build/getting-started/#start-the-development-server) to preview the plugin in action.
+4. (Optional) If you’re already overriding or [want to override](https://starlight.astro.build/reference/configuration/#components) the default `Pagination` component, add `Comments.astro` to your code:
+
+    ```astro
+    // CustomPagination.astro
+    ---
+    import Comments from 'starlight-giscus/components/Comments.astro';
+    import OriginalPagination from '@astrojs/starlight/components/Pagination.astro';
+    ---
+
+    <Comments />
+
+    Provide your version of the pagination code
+
+    or use default component: <OriginalPagination />
+    ```
+
+5. [Start the development server](https://starlight.astro.build/getting-started/#start-the-development-server) to preview the plugin in action.
 
 </Steps>
