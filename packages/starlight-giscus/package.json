@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "license": "MIT",
   "description": "Integrates the Giscus comment block into your documentation.",
   "keywords": [
@@ -17,12 +17,8 @@
     "./overrides/Pagination.astro": "./overrides/Pagination.astro",
     "./package.json": "./package.json"
   },
-  "devDependencies": {
-    "@astrojs/starlight": "^0.32.0",
-    "astro": "^5.3.0"
-  },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.32"
+    "@astrojs/starlight": ">=0.32.0"
   },
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
