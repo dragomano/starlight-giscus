@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "description": "Integrates the Giscus comment block into your documentation.",
   "keywords": [
