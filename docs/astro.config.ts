@@ -5,13 +5,6 @@ import starlightGiscus from 'starlight-giscus'
 export default defineConfig({
   site: 'https://dragomano.github.io/starlight-giscus',
   base: '/starlight-giscus/',
-  i18n: {
-    locales: ["en", "ru"],
-    defaultLocale: "en",
-    routing: {
-      prefixDefaultLocale: false,
-    }
-  },
   integrations: [
     starlight({
       editLink: {
@@ -23,7 +16,8 @@ export default defineConfig({
           repoId: 'R_kgDONyBz0w',
           category: 'Q&A',
           categoryId: 'DIC_kwDONyBz084Cme94',
-          inputPosition: 'top'
+          inputPosition: 'top',
+          lazy: true
         })
       ],
       sidebar: [
@@ -31,11 +25,11 @@ export default defineConfig({
         { slug: 'configuration' },
         { slug: 'frontmatter' },
       ],
-      social: {
-        github: 'https://github.com/dragomano/starlight-giscus',
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/dragomano/starlight-giscus' },
+      ],
       title: 'Starlight Giscus',
-      /* locales: {
+      locales: {
         root: {
           label: 'English',
           lang: 'en',
@@ -44,7 +38,7 @@ export default defineConfig({
           label: 'Русский',
           lang: 'ru',
         },
-      }, */
+      },
     }),
   ],
 })
