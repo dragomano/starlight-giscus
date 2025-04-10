@@ -79,10 +79,6 @@ const giscus = entry.data.giscus ?? true;
                         setGiscusTheme();
                     }
 
-                    const giscus: HTMLScriptElement = document.querySelector('script[src*="giscus.app"]')!
-
-                    giscus.dataset.theme = getThemeValue();
-
                     document.addEventListener('DOMContentLoaded', function() {
                         const ref: Element = document.querySelector('starlight-theme-select')!
 
