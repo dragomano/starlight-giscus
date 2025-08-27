@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus",
-  "version": "0.6.1",
+  "version": "0.7",
   "license": "MIT",
   "description": "Integrates the Giscus comment block into your documentation.",
   "keywords": [
@@ -18,10 +18,10 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.32.0"
+    "@astrojs/starlight": ">=0.35.0"
   },
   "engines": {
-    "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
+    "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
   },
   "publishConfig": {
     "access": "public",
