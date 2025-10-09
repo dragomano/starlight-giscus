@@ -1,4 +1,5 @@
 ---
+import config from "virtual:starlight-giscus-config";
 const { entry, lang } = Astro.locals.starlightRoute;
 const {
     repo,
@@ -10,7 +11,7 @@ const {
     inputPosition,
     theme,
     lazy
-} = globalThis.giscusConfig;
+} = config;
 const preparedTheme = typeof theme === 'object' ? theme : { auto: theme };
 const giscus = entry.data.giscus ?? true;
 ---
