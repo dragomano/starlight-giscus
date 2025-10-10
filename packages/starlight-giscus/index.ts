@@ -2,6 +2,7 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 import { vitePluginStarlightGiscusConfig } from "./libs/vite";
+import { overrideStarlightComponent } from "./libs/starlight";
 
 const themeSchema = z.union([
   z.string().default("preferred_color_scheme"),
@@ -36,13 +37,16 @@ export default function starlightGiscus(
   return {
     name: "starlight-giscus",
     hooks: {
-      "config:setup"({ config, updateConfig, addIntegration }) {
-        if (config.components?.Pagination) return;
-
+      "config:setup"({ logger, config, updateConfig, addIntegration }) {
         updateConfig({
           components: {
             ...config.components,
-            Pagination: "starlight-giscus/overrides/Pagination.astro",
+            ...overrideStarlightComponent(
+              config.components,
+              logger,
+              "Pagination",
+              "Pagination",
+            ),
           },
         });
 
