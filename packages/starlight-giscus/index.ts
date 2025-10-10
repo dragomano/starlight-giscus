@@ -1,15 +1,15 @@
-import type { StarlightPlugin } from "@astrojs/starlight/types";
-import { AstroError } from "astro/errors";
-import { z } from "astro/zod";
-import { vitePluginStarlightGiscusConfig } from "./libs/vite";
-import { overrideStarlightComponent } from "./libs/starlight";
+import type { StarlightPlugin } from '@astrojs/starlight/types';
+import { AstroError } from 'astro/errors';
+import { z } from 'astro/zod';
+import { vitePluginStarlightGiscusConfig } from './libs/vite';
+import { overrideStarlightComponent } from './libs/starlight';
 
 const themeSchema = z.union([
-  z.string().default("preferred_color_scheme"),
+  z.string().default('preferred_color_scheme'),
   z.object({
-    light: z.string().default("light"),
-    dark: z.string().default("dark"),
-    auto: z.string().default("preferred_color_scheme"),
+    light: z.string().default('light'),
+    dark: z.string().default('dark'),
+    auto: z.string().default('preferred_color_scheme'),
   }),
 ]);
 
@@ -18,15 +18,15 @@ const configSchema = z.object({
   repoId: z.string(),
   category: z.string(),
   categoryId: z.string(),
-  mapping: z.string().default("pathname"),
+  mapping: z.string().default('pathname'),
   reactions: z.boolean().default(true),
-  inputPosition: z.string().default("bottom"),
-  theme: themeSchema.default("preferred_color_scheme"),
+  inputPosition: z.string().default('bottom'),
+  theme: themeSchema.default('preferred_color_scheme'),
   lazy: z.boolean().default(false),
 });
 
 export default function starlightGiscus(
-  options: StarlightGiscusUserConfig,
+  options: StarlightGiscusUserConfig
 ): StarlightPlugin {
   const parsedConfig = configSchema.safeParse(options);
 
@@ -35,25 +35,25 @@ export default function starlightGiscus(
   }
 
   return {
-    name: "starlight-giscus",
+    name: 'starlight-giscus',
     hooks: {
-      "config:setup"({ logger, config, updateConfig, addIntegration }) {
+      'config:setup'({ logger, config, updateConfig, addIntegration }) {
         updateConfig({
           components: {
             ...config.components,
             ...overrideStarlightComponent(
               config.components,
               logger,
-              "Pagination",
-              "Pagination",
+              'Pagination',
+              'Pagination'
             ),
           },
         });
 
         addIntegration({
-          name: "starlight-giscus-integration",
+          name: 'starlight-giscus-integration',
           hooks: {
-            "astro:config:setup": ({ updateConfig }) => {
+            'astro:config:setup': ({ updateConfig }) => {
               updateConfig({
                 vite: {
                   plugins: [vitePluginStarlightGiscusConfig(parsedConfig.data)],

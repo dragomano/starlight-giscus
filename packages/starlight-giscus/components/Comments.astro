@@ -1,5 +1,5 @@
 ---
-import config from "virtual:starlight-giscus-config";
+import config from 'virtual:starlight-giscus-config';
 const { entry, lang } = Astro.locals.starlightRoute;
 const {
     repo,
@@ -19,7 +19,9 @@ const giscus = entry.data.giscus ?? true;
     giscus && (
         <giscus-comments data-theme={JSON.stringify(preparedTheme)}>
             <div class="comments">
-                <script src="https://giscus.app/client.js"
+                <script
+                    is:inline
+                    src="https://giscus.app/client.js"
                     data-repo={repo}
                     data-repo-id={repoId}
                     data-category={category}

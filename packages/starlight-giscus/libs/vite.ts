@@ -1,23 +1,24 @@
-import type { ViteUserConfig } from "astro";
-
-import type { StarlightGiscusConfig } from "..";
+import type { ViteUserConfig } from 'astro';
+import type { StarlightGiscusConfig } from '..';
 
 export function vitePluginStarlightGiscusConfig(
-  starlightGiscusConfig: StarlightGiscusConfig,
+  starlightGiscusConfig: StarlightGiscusConfig
 ): VitePlugin {
   const modules = {
-    "virtual:starlight-giscus-config": `export default ${JSON.stringify(starlightGiscusConfig)}`,
+    'virtual:starlight-giscus-config': `export default ${JSON.stringify(
+      starlightGiscusConfig
+    )}`,
   };
 
   const moduleResolutionMap = Object.fromEntries(
     (Object.keys(modules) as (keyof typeof modules)[]).map((key) => [
       resolveVirtualModuleId(key),
       key,
-    ]),
+    ])
   );
 
   return {
-    name: "vite-plugin-starlight-giscus",
+    name: 'vite-plugin-starlight-giscus',
     load(id) {
       const moduleId = moduleResolutionMap[id];
       return moduleId ? modules[moduleId] : undefined;
@@ -29,9 +30,9 @@ export function vitePluginStarlightGiscusConfig(
 }
 
 function resolveVirtualModuleId<TModuleId extends string>(
-  id: TModuleId,
+  id: TModuleId
 ): `\0${TModuleId}` {
   return `\0${id}`;
 }
 
-type VitePlugin = NonNullable<ViteUserConfig["plugins"]>[number];
+type VitePlugin = NonNullable<ViteUserConfig['plugins']>[number];

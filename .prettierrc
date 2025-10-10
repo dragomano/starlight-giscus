@@ -1,0 +1,6 @@
+{
+  "singleQuote": true,
+  "useTabs": false,
+  "endOfLine": "lf",
+  "plugins": ["astro"]
+}
