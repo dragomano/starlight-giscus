@@ -11,9 +11,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.35.2",
-    "astro": "^5.13.3",
-    "sharp": "^0.34.3",
+    "@astrojs/starlight": "^0.36.0",
+    "astro": "^5.14.3",
+    "sharp": "^0.34.4",
     "starlight-giscus": "workspace:*",
     "starlight-package-managers": "^0.11.0"
   },
