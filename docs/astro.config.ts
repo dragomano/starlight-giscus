@@ -12,6 +12,7 @@ export default defineConfig({
       },
       plugins: [
         starlightGiscus({
+          element: 'button.darkmode-toggle',
           repo: 'dragomano/starlight-giscus',
           repoId: 'R_kgDONyBz0w',
           category: 'Q&A',
@@ -28,6 +29,9 @@ export default defineConfig({
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/dragomano/starlight-giscus' },
       ],
+      components: {
+        ThemeSelect: './src/components/DarkMode.astro',
+      },
       title: 'Starlight Giscus',
       locales: {
         root: {
