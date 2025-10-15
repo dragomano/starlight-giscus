@@ -14,6 +14,7 @@ const themeSchema = z.union([
 ]);
 
 const configSchema = z.object({
+  element: z.string().default('starlight-theme-select'),
   repo: z.string(),
   repoId: z.string(),
   category: z.string(),
