@@ -1,12 +1,15 @@
 {
   "name": "starlight-giscus",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "license": "MIT",
-  "description": "Integrates the Giscus comment block into your documentation.",
+  "description": "A Starlight plugin for adding Giscus comments to your documentation.",
   "keywords": [
     "starlight",
     "starlight-plugin",
     "giscus",
+    "discussions",
+    "github-discussions",
+    "reactions",
     "comments"
   ],
   "author": "Bugo",
@@ -18,10 +21,10 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.35.0"
+    "@astrojs/starlight": ">=0.37.0"
   },
   "engines": {
-    "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
+    "node": ">=20.0.0"
   },
   "publishConfig": {
     "access": "public",

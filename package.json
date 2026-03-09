@@ -10,12 +10,12 @@
   "author": "Bugo",
   "type": "module",
   "engines": {
-    "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
-    "astro": "^5.14.3"
+    "astro": "^5.18.0"
   },
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.28.0",
   "private": true,
   "sideEffects": false,
   "homepage": "https://github.com/dragomano/starlight-giscus",
