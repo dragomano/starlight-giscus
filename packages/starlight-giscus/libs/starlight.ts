@@ -9,7 +9,7 @@ export function overrideStarlightComponent(
 ) {
   if (components?.[override]) {
     logger.warn(
-      `It looks like you already have a \`${override}\` component override in your Starlight configuration.`
+      `It looks like you already have a \`${String(override)}\` component override in your Starlight configuration.`
     );
     logger.warn(
       `To use \`starlight-giscus\`, either remove your override or update it to render the content from \`starlight-giscus/components/${component}.astro\`.`
@@ -19,6 +19,6 @@ export function overrideStarlightComponent(
   }
 
   return {
-    [override]: `starlight-giscus/overrides/${override}.astro`,
+    [override]: `starlight-giscus/overrides/${String(override)}.astro`,
   };
 }

@@ -1,49 +1,102 @@
 import type { StarlightPlugin } from '@astrojs/starlight/types';
 import { AstroError } from 'astro/errors';
-import { z } from 'astro/zod';
 import { vitePluginStarlightGiscusConfig } from './libs/vite';
 import { overrideStarlightComponent } from './libs/starlight';
 
-const themeSchema = z.union([
-  z.string().default('preferred_color_scheme'),
-  z.object({
-    light: z.string().default('light'),
-    dark: z.string().default('dark'),
-    auto: z.string().default('preferred_color_scheme'),
-  }),
-]);
+export interface StarlightGiscusThemeObject {
+  light?: string;
+  dark?: string;
+  auto?: string;
+}
 
-const configSchema = z.object({
-  element: z.string().default('starlight-theme-select'),
-  repo: z.string(),
-  repoId: z.string(),
-  category: z.string(),
-  categoryId: z.string(),
-  mapping: z.string().default('pathname'),
-  reactions: z.boolean().default(true),
-  inputPosition: z.string().default('bottom'),
-  theme: themeSchema.default('preferred_color_scheme'),
-  lazy: z.boolean().default(false),
-});
+export type StarlightGiscusTheme = string | StarlightGiscusThemeObject;
+
+export interface StarlightGiscusUserConfig {
+  element?: string;
+  repo: string;
+  repoId: string;
+  category: string;
+  categoryId: string;
+  mapping?: string;
+  reactions?: boolean;
+  inputPosition?: string;
+  theme?: StarlightGiscusTheme;
+  lazy?: boolean;
+}
+
+export interface StarlightGiscusConfig {
+  element: string;
+  repo: string;
+  repoId: string;
+  category: string;
+  categoryId: string;
+  mapping: string;
+  reactions: boolean;
+  inputPosition: string;
+  theme: string | StarlightGiscusThemeObject;
+  lazy: boolean;
+}
+
+function validateAndNormalizeConfig(
+  options: StarlightGiscusUserConfig
+): StarlightGiscusConfig {
+  // Validate required fields
+  const requiredFields: (keyof StarlightGiscusUserConfig)[] = [
+    'repo',
+    'repoId',
+    'category',
+    'categoryId',
+  ];
+
+  for (const field of requiredFields) {
+    if (!options[field]) {
+      throw new AstroError(
+        `The provided plugin configuration is invalid. Missing required field: ${field}`
+      );
+    }
+  }
+
+  // Normalize theme
+  let normalizedTheme: StarlightGiscusConfig['theme'];
+  if (typeof options.theme === 'object' && options.theme !== null) {
+    normalizedTheme = {
+      light: options.theme.light ?? 'light',
+      dark: options.theme.dark ?? 'dark',
+      auto: options.theme.auto ?? 'preferred_color_scheme',
+    };
+  } else {
+    normalizedTheme = options.theme ?? 'preferred_color_scheme';
+  }
+
+  // Return config with defaults
+  return {
+    element: options.element ?? 'starlight-theme-select',
+    repo: options.repo,
+    repoId: options.repoId,
+    category: options.category,
+    categoryId: options.categoryId,
+    mapping: options.mapping ?? 'pathname',
+    reactions: options.reactions ?? true,
+    inputPosition: options.inputPosition ?? 'bottom',
+    theme: normalizedTheme,
+    lazy: options.lazy ?? false,
+  };
+}
 
 export default function starlightGiscus(
   options: StarlightGiscusUserConfig
 ): StarlightPlugin {
-  const parsedConfig = configSchema.safeParse(options);
-
-  if (!parsedConfig.success) {
-    throw new AstroError(`The provided plugin configuration is invalid.`);
-  }
+  const config = validateAndNormalizeConfig(options);
 
   return {
     name: 'starlight-giscus',
     hooks: {
-      'config:setup'({ logger, config, updateConfig, addIntegration }) {
+      'config:setup'({ logger, config: starlightConfig, updateConfig, addIntegration }) {
         updateConfig({
           components: {
-            ...config.components,
+            ...starlightConfig.components,
             ...overrideStarlightComponent(
-              config.components,
+              starlightConfig.components,
               logger,
               'Pagination',
               'Pagination'
@@ -57,7 +110,7 @@ export default function starlightGiscus(
             'astro:config:setup': ({ updateConfig }) => {
               updateConfig({
                 vite: {
-                  plugins: [vitePluginStarlightGiscusConfig(parsedConfig.data)],
+                  plugins: [vitePluginStarlightGiscusConfig(config)],
                 },
               });
             },
@@ -67,6 +120,3 @@ export default function starlightGiscus(
     },
   };
 }
-
-type StarlightGiscusUserConfig = z.input<typeof configSchema>;
-export type StarlightGiscusConfig = z.output<typeof configSchema>;
