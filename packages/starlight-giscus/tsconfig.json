@@ -1,8 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "skipLibCheck": true
   },
-  "include": ["*.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "include": ["index.ts", "libs/**/*.ts", "tests/**/*.ts", "virtual.d.ts"],
+  "exclude": ["dist", "node_modules"]
 }

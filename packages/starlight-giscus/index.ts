@@ -83,6 +83,8 @@ function validateAndNormalizeConfig(
   };
 }
 
+export { validateAndNormalizeConfig };
+
 export default function starlightGiscus(
   options: StarlightGiscusUserConfig
 ): StarlightPlugin {

@@ -22,3 +22,5 @@ pnpm-debug.log*
 
 .vscode/
 .idea/
+
+packages/starlight-giscus/coverage

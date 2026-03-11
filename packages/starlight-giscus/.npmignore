@@ -1,1 +1,6 @@
 tsconfig.json
+tsconfig.build.json
+vitest.config.ts
+tests
+coverage
+*.test.ts
