@@ -20,6 +20,18 @@ const giscus = entry.data.giscus ?? true;
     giscus && (
         <giscus-comments data-theme={JSON.stringify(preparedTheme)} data-element={element}>
             <div class="comments">
+                <script is:inline define:vars={{ preparedTheme }}>
+                    (function () {
+                        var palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme';
+                        var initial = palette === 'dark'
+                            ? (preparedTheme.dark || 'dark')
+                            : (palette === 'light'
+                                ? (preparedTheme.light || 'light')
+                                : (preparedTheme.auto || 'preferred_color_scheme'));
+                        var next = document.currentScript && document.currentScript.nextElementSibling;
+                        if (next) next.setAttribute('data-theme', initial);
+                    })();
+                </script>
                 <script
                     is:inline
                     src="https://giscus.app/client.js"
@@ -83,11 +95,12 @@ const giscus = entry.data.giscus ?? true;
                         setGiscusTheme();
                     }
 
+                    window.addEventListener('message', handleGiscusMessage);
+
                     document.addEventListener('DOMContentLoaded', function() {
                         const ref: Element = document.querySelector(element)!
 
                         ref.addEventListener('change', setGiscusTheme)
-                        window.addEventListener('message', handleGiscusMessage);
                     })
                 }
             }
