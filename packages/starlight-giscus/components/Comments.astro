@@ -22,13 +22,13 @@ const giscus = entry.data.giscus ?? true;
             <div class="comments">
                 <script is:inline define:vars={{ preparedTheme }}>
                     (function () {
-                        var palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme';
-                        var initial = palette === 'dark'
+                        const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme';
+                        const initial = palette === 'dark'
                             ? (preparedTheme.dark || 'dark')
                             : (palette === 'light'
                                 ? (preparedTheme.light || 'light')
                                 : (preparedTheme.auto || 'preferred_color_scheme'));
-                        var next = document.currentScript && document.currentScript.nextElementSibling;
+                        const next = document.currentScript && document.currentScript.nextElementSibling;
                         if (next) next.setAttribute('data-theme', initial);
                     })();
                 </script>
