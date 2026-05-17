@@ -1,0 +1,55 @@
+import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const componentSource = readFileSync(
+  resolve(__dirname, '../components/Comments.astro'),
+  'utf8'
+);
+
+describe('Comments.astro initial theme handling', () => {
+  it('registers the giscus message listener outside DOMContentLoaded so the iframe\'s first "ready" message is captured', () => {
+    // Bug: when the message listener is attached inside DOMContentLoaded, the
+    // giscus iframe can post its first "ready" message before DOMContentLoaded
+    // fires (its <script> is async). The listener is missed and setGiscusTheme()
+    // never runs on initial render, so the iframe stays on preparedTheme.auto
+    // regardless of the user's saved starlight-theme.
+    const messageListenerIdx = componentSource.search(
+      /window\.addEventListener\(\s*['"]message['"]/
+    );
+    const domContentLoadedIdx = componentSource.search(
+      /document\.addEventListener\(\s*['"]DOMContentLoaded['"]/
+    );
+
+    expect(messageListenerIdx).toBeGreaterThan(-1);
+
+    // The message listener must be registered before the DOMContentLoaded
+    // callback body, so a check on source order is sufficient.
+    if (domContentLoadedIdx > -1) {
+      expect(messageListenerIdx).toBeLessThan(domContentLoadedIdx);
+    }
+  });
+
+  it('seeds the giscus script\'s data-theme from localStorage on first paint', () => {
+    // Bug: data-theme is hardcoded to preparedTheme.auto in the server render,
+    // so light/dark from a theme object are ignored on first paint. Fix: an
+    // is:inline pre-script (running before the async giscus client.js loads)
+    // reads localStorage['starlight-theme'] and writes the correct theme onto
+    // the giscus <script> data-theme attribute.
+    //
+    // Heuristic: such a pre-script reads localStorage AND mutates a
+    // data-theme attribute (e.g. setAttribute('data-theme', ...) or
+    // `.dataset.theme = ...`). Current main does neither.
+    const readsLocalStorage = /localStorage\.getItem\(\s*['"]starlight-theme['"]\s*\)/.test(
+      componentSource
+    );
+    const writesDataTheme =
+      /setAttribute\(\s*['"]data-theme['"]/.test(componentSource) ||
+      /dataset\.theme\s*=/.test(componentSource);
+
+    expect(readsLocalStorage, 'expected the component to read localStorage[\'starlight-theme\']').toBe(true);
+    expect(writesDataTheme, 'expected the component to write the giscus script\'s data-theme attribute from a pre-script').toBe(true);
+  });
+});
