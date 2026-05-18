@@ -22,12 +22,10 @@ const giscus = entry.data.giscus ?? true;
             <div class="comments">
                 <script is:inline define:vars={{ preparedTheme }}>
                     (function () {
-                        const palette = localStorage.getItem('starlight-theme') || 'preferred_color_scheme';
-                        const initial = palette === 'dark'
+                        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        const initial = prefersDark
                             ? (preparedTheme.dark || 'dark')
-                            : (palette === 'light'
-                                ? (preparedTheme.light || 'light')
-                                : (preparedTheme.auto || 'preferred_color_scheme'));
+                            : (preparedTheme.light || 'light');
                         const next = document.currentScript && document.currentScript.nextElementSibling;
                         if (next) next.setAttribute('data-theme', initial);
                     })();
@@ -95,7 +93,26 @@ const giscus = entry.data.giscus ?? true;
                         setGiscusTheme();
                     }
 
+                    const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+                    function setGiscusThemeFromSystem() {
+                        const frame: HTMLIFrameElement | null = document.querySelector('iframe.giscus-frame');
+                        if (!frame) return;
+                        const theme = prefersDarkQuery.matches ? darkTheme : lightTheme;
+                        frame.contentWindow?.postMessage(
+                            {
+                                giscus: {
+                                    setConfig: {
+                                        theme: theme
+                                    }
+                                }
+                            },
+                            'https://giscus.app'
+                        )
+                    }
+
                     window.addEventListener('message', handleGiscusMessage);
+                    prefersDarkQuery.addEventListener('change', setGiscusThemeFromSystem);
 
                     document.addEventListener('DOMContentLoaded', function() {
                         const ref: Element = document.querySelector(element)!

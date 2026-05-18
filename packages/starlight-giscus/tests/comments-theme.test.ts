@@ -32,24 +32,35 @@ describe('Comments.astro initial theme handling', () => {
     }
   });
 
-  it('seeds the giscus script\'s data-theme from localStorage on first paint', () => {
+  it('seeds the giscus script\'s data-theme from prefers-color-scheme on first paint', () => {
     // Bug: data-theme is hardcoded to preparedTheme.auto in the server render,
     // so light/dark from a theme object are ignored on first paint. Fix: an
     // is:inline pre-script (running before the async giscus client.js loads)
-    // reads localStorage['starlight-theme'] and writes the correct theme onto
-    // the giscus <script> data-theme attribute.
-    //
-    // Heuristic: such a pre-script reads localStorage AND mutates a
-    // data-theme attribute (e.g. setAttribute('data-theme', ...) or
-    // `.dataset.theme = ...`). Current main does neither.
-    const readsLocalStorage = /localStorage\.getItem\(\s*['"]starlight-theme['"]\s*\)/.test(
+    // detects the visitor's OS color-scheme preference via matchMedia and
+    // writes the resolved theme onto the giscus <script> data-theme attribute.
+    const readsPrefersColorScheme = /matchMedia\(\s*['"]\(prefers-color-scheme:\s*dark\)['"]\s*\)/.test(
       componentSource
     );
     const writesDataTheme =
       /setAttribute\(\s*['"]data-theme['"]/.test(componentSource) ||
       /dataset\.theme\s*=/.test(componentSource);
 
-    expect(readsLocalStorage, 'expected the component to read localStorage[\'starlight-theme\']').toBe(true);
+    expect(readsPrefersColorScheme, 'expected the component to read prefers-color-scheme via matchMedia').toBe(true);
     expect(writesDataTheme, 'expected the component to write the giscus script\'s data-theme attribute from a pre-script').toBe(true);
+  });
+
+  it('updates the giscus iframe when the OS prefers-color-scheme changes', () => {
+    // The custom element must subscribe to matchMedia('(prefers-color-scheme: dark)')
+    // change events and post a setConfig message to the giscus iframe so the theme
+    // tracks the visitor's OS preference even after first paint.
+    const subscribesToMediaQuery =
+      /matchMedia\(\s*['"]\(prefers-color-scheme:\s*dark\)['"]\s*\)/.test(componentSource) &&
+      /addEventListener\(\s*['"]change['"]/.test(componentSource);
+    const postsSetConfig = /postMessage\(\s*\{\s*giscus:\s*\{\s*setConfig:/.test(
+      componentSource
+    );
+
+    expect(subscribesToMediaQuery, 'expected matchMedia change subscription').toBe(true);
+    expect(postsSetConfig, 'expected postMessage with giscus.setConfig payload').toBe(true);
   });
 });
