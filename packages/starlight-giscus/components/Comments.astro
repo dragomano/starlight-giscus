@@ -22,10 +22,12 @@ const giscus = entry.data.giscus ?? true;
             <div class="comments">
                 <script is:inline define:vars={{ preparedTheme }}>
                     (function () {
+                        if (!preparedTheme.dark && !preparedTheme.light) return;
                         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        const fallback = preparedTheme.auto || 'preferred_color_scheme';
                         const initial = prefersDark
-                            ? (preparedTheme.dark || 'dark')
-                            : (preparedTheme.light || 'light');
+                            ? (preparedTheme.dark || fallback)
+                            : (preparedTheme.light || fallback);
                         const next = document.currentScript && document.currentScript.nextElementSibling;
                         if (next) next.setAttribute('data-theme', initial);
                     })();
