@@ -29,14 +29,14 @@
     "./package.json": "./package.json"
   },  
   "devDependencies": {
-    "@vitest/coverage-v8": "^4.0.18",
-    "@vitest/ui": "^4.0.18",
+    "@vitest/coverage-v8": "^4.1.7",
+    "@vitest/ui": "^4.1.7",
     "tsc-files": "^1.1.4",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "vite": "^8.0.14",
+    "vitest": "^4.1.7"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.37.0"
+    "@astrojs/starlight": ">=0.39.0"
   },
   "engines": {
     "node": ">=20.0.0"
