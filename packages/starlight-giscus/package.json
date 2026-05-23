@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A Starlight plugin for adding Giscus comments to your documentation.",
   "keywords": [
