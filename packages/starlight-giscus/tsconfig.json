@@ -4,6 +4,6 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true
   },
-  "include": ["index.ts", "libs/**/*.ts", "tests/**/*.ts", "virtual.d.ts"],
+  "include": ["index.ts", "libs/**/*.ts", "tests/**/*.ts", "virtual.d.ts", "**/*.astro"],
   "exclude": ["dist", "node_modules"]
 }
