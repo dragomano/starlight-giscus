@@ -1,0 +1,11 @@
+@import url('https://giscus.app/themes/light.css');
+
+.gsc-comment-box, .gsc-comment-box-tabs {
+  border-right-color: transparent;
+  box-shadow: inset -.7px 0 0 0 var(--color-border-default,var(--color-border-primary));
+}
+
+.color-box-border-info, .gsc-comment-box-is-reply, .gsc-reply-box {
+  border-right-color: transparent;
+  box-shadow: inset -.7px 0 0 0 var(--color-accent-muted, var(--color-box-border-info));
+}

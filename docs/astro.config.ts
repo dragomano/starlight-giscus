@@ -18,6 +18,10 @@ export default defineConfig({
           category: 'Q&A',
           categoryId: 'DIC_kwDONyBz084Cme94',
           inputPosition: 'top',
+          theme: {
+            light: 'https://dragomano.github.io/starlight-giscus/light.css',
+            dark: 'https://dragomano.github.io/starlight-giscus/dark.css',
+          },
           lazy: true
         })
       ],
