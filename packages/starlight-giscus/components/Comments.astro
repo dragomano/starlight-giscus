@@ -107,6 +107,14 @@ const giscus = entry.data.giscus ?? true;
                 sendThemeToGiscus(prefersDarkQuery.matches ? darkTheme : lightTheme)
             );
 
+            const observer = new MutationObserver(() => setGiscusTheme());
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme'],
+            });
+
+            document.addEventListener('astro:after-swap', () => setGiscusTheme());
+
             const attachThemeSelect = () => {
                 document.querySelector(element)?.addEventListener('change', setGiscusTheme);
             };

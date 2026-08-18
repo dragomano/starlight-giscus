@@ -101,23 +101,6 @@ const { class: className, label = 'Переключить тему', ...rest } =
       }
     };
 
-    const updateGiscusTheme = (newTheme) => {
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-
-      if (giscusFrame) {
-        giscusFrame.contentWindow?.postMessage(
-          {
-            giscus: {
-              setConfig: {
-                theme: newTheme,
-              },
-            },
-          },
-          '*',
-        );
-      }
-    };
-
     const applySystemTheme = () => {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -127,7 +110,6 @@ const { class: className, label = 'Переключить тему', ...rest } =
     const initializeTheme = () => {
       if (storedTheme) {
         applyTheme(storedTheme);
-        updateGiscusTheme(storedTheme);
 
         return;
       }
@@ -143,7 +125,6 @@ const { class: className, label = 'Переключить тему', ...rest } =
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
         applyTheme(newTheme);
-        updateGiscusTheme(newTheme);
       }
     });
 
