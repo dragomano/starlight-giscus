@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
 import { AstroError } from 'astro/errors';
 import { vitePluginStarlightGiscusConfig } from './libs/vite';
@@ -110,9 +111,19 @@ export default function starlightGiscus(
           name: 'starlight-giscus-integration',
           hooks: {
             'astro:config:setup': ({ updateConfig }) => {
+              const require = createRequire(import.meta.url);
+              const paginationPath = require.resolve(
+                '@astrojs/starlight/components/Pagination.astro'
+              );
+
               updateConfig({
                 vite: {
                   plugins: [vitePluginStarlightGiscusConfig(config)],
+                  resolve: {
+                    alias: {
+                      '@astrojs/starlight/components/Pagination.astro': paginationPath,
+                    },
+                  },
                 },
               });
             },
