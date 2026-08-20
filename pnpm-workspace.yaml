@@ -1,11 +1,14 @@
 packages:
   - 'docs'
   - 'packages/*'
+
 allowBuilds:
-  esbuild: true
-  sharp: true
+  esbuild: false
+  sharp: false
+
 minimumReleaseAgeExclude:
-  - vite@8.1.0
-  - '@astrojs/markdown-satteri@0.3.2'
   - '@astrojs/starlight@0.41.0'
-  - astro@7.0.2
+  - '@astrojs/internal-helpers@0.10.4'
+  - '@astrojs/markdown-satteri@0.3.7'
+  - astro@7.2.4
+  - vite@8.2.2

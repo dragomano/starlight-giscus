@@ -1,6 +1,6 @@
 {
   "name": "starlight-giscus",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "description": "A Starlight plugin for adding Giscus comments to your documentation.",
   "keywords": [
@@ -29,11 +29,11 @@
     "./package.json": "./package.json"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^4.1.9",
-    "@vitest/ui": "^4.1.9",
+    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/ui": "^4.1.11",
     "tsc-files": "^1.1.4",
-    "vite": "^8.1.0",
-    "vitest": "^4.1.9"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.41.0"
